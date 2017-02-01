@@ -9,6 +9,7 @@ import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 
+import introsde.adapter.ws.Exercise;
 import introsde.localdatabase.soap.Person;
 
 
@@ -20,6 +21,10 @@ public interface Business {
 	@WebMethod(operationName="createPerson")
 	@WebResult(name="person") 
 	public Person createPerson(@WebParam(name="person") Person person);
+	
+	@WebMethod(operationName="getCalories")
+	@WebResult(name="calories") 
+    public double getCalories(@WebParam(name="chatId") Long chatId, @WebParam(name="exercise") Exercise exe);
 	
     
 }

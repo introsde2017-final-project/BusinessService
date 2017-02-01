@@ -1,8 +1,11 @@
 package introsde.business.ws;
 
+import java.util.List;
+
 import javax.jws.WebService;
 import javax.xml.ws.Holder;
 
+import introsde.adapter.ws.Exercise;
 import introsde.localdatabase.soap.Person;
 import introsde.storage.ws.Storage;
 import introsde.storage.ws.StorageService;
@@ -34,7 +37,38 @@ public class BusinessImpl implements Business{
 		return null;
 	}
 
+	
+	public Exercise search(List<Exercise> list, String name){
+		for(Exercise e:list){
+			if (e.getName().equals(name)){
+				return e;
+			}
+				
+		}
+		return null;
+	}
 
+	@Override
+	public double getCalories(Long chatId, Exercise exe) {
+		initialize();
+		
+		Person dbPerson = storage.getPersonByChatId(chatId);
+		Exercise res = search(storage.getExercises(), exe.getName());
+		
+		storage.setInfo(dbPerson, 80, 180, 75);
 
-
+		
+		// insert the new exercise in the current day
+		storage.editExerciseEntry(dbPerson, res.getId(), exe.getMinutes());
+		
+		res = search(storage.getExerciseEntry(dbPerson, 0),exe.getName());
+		
+		double calories = res.getCalories();
+		
+		storage.commitDay(dbPerson);
+		
+		return calories;
+	}
 }
+
+
