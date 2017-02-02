@@ -53,8 +53,23 @@ public class BusinessImpl implements Business{
 			dbPerson = storage.getPersonByChatId(chatId);
 		} catch (Exception e) {
 			System.err.println(e);
-			return null;
+			return null; //return null if person not in db
 		}
+		
+		//check (when updating weight or height) if they were already set and keep value
+		Double weight = null;
+		Double height = null;
+		if (measure.getMeasureType().equals("weight") || measure.getMeasureType().equals("height")) {
+			CurrentHealth cHealth = dbPerson.getCurrentHealth();
+        	List<Measure> measureList = cHealth.getMeasure();
+        	for (Measure m : measureList) {
+        		if (m.getMeasureType().equals("weight")) {
+        			weight = Double.parseDouble(m.getMeasureValue());
+        		} else if (m.getMeasureType().equals("height")) {
+        			height = Double.parseDouble(m.getMeasureValue());
+        		}
+        	}
+		}		
     	
     	//set today date
     	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -66,31 +81,17 @@ public class BusinessImpl implements Business{
     		storage.savePersonMeasure(dbPerson.getIdPerson(), holder);
     	} catch (Exception e) {
 			System.err.println(e);
-			return null;
+			return null; //return null if the person was not saved for some error
 		}
     	
-    	//if both weight and height are set (check only when updating them)
-    	if (measure.getMeasureType().equals("weight") || measure.getMeasureType().equals("height")) {
-    		Double weight = null;
-    		Double height = null;
-    		
-    		dbPerson = storage.getPersonByChatId(chatId); //refresh person
-
-    		CurrentHealth cHealth = dbPerson.getCurrentHealth();
-        	List<Measure> measureList = cHealth.getMeasure();
-        	for (Measure m : measureList) {
-        		if (m.getMeasureType().equals("weight")) {
-        			weight = Double.parseDouble(m.getMeasureValue());
-        		} else if (m.getMeasureType().equals("height")) {
-        			height = Double.parseDouble(m.getMeasureValue());
-        		}
-        	}
-        	if (weight != null && height != null) {
-        		//TODO check goal if present
-        		storage.setInfo(dbPerson, weight, height, weight-5);
-        	}
-    	}
-    	
+    	//call setInfo only if for the first time weight and height are both set
+		if (measure.getMeasureType().equals("weight") && weight == null && height != null) {
+			Double storedWeight = Double.parseDouble(measure.getMeasureValue());
+			storage.setInfo(dbPerson, storedWeight, height, storedWeight - 5);
+		} else if (measure.getMeasureType().equals("height") && height == null && weight != null) {
+			Double storedHeight = Double.parseDouble(measure.getMeasureValue());
+			storage.setInfo(dbPerson, weight, storedHeight, weight - 5);
+		}
     	return holder.value;
 	}
 	
