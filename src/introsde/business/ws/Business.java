@@ -32,5 +32,13 @@ public interface Business {
 	@WebMethod(operationName="getCalories")
 	@WebResult(name="calories")
 	public double getCalories(@WebParam(name="chatId") Long chatId, @WebParam(name="exercise") Exercise exe);
+	
+    @WebMethod(operationName="getProfile")
+    @WebResult(name="person") 
+    public Person getProfile(@WebParam(name="chatId") Long chatId);
+    
+    @WebMethod(operationName="updatePerson")
+    @WebResult(name="person") 
+    public Person updatePerson(@WebParam(name="person") Person person);
     
 }

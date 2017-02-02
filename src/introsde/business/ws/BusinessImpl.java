@@ -126,6 +126,54 @@ public class BusinessImpl implements Business{
 		
 		return calories;
 	}
+
+
+	@Override
+	public Person getProfile(Long chatId) {
+		initialize();
+		
+		Person dbPerson = storage.getPersonByChatId(chatId);
+		
+		if (dbPerson!=null){
+			//remove the application's informations
+			dbPerson.setAuthSecret(null);
+			dbPerson.setAuthToken(null);
+			dbPerson.setChatId(null);
+			dbPerson.setIdPerson(null);
+			
+			return dbPerson;	
+		}
+		
+		return null;
+		
+	}
+
+
+	@Override
+	public Person updatePerson(Person person) {
+		initialize();
+		
+		Person dbPerson = storage.getPersonByChatId(person.getChatId());
+		
+		if (dbPerson!=null){
+			//Save new values
+			if(person.getFirstname()!=null)
+				dbPerson.setFirstname(person.getFirstname());
+			if(person.getLastname()!=null)
+				dbPerson.setLastname(person.getLastname());
+			if(person.getEmail()!=null)
+				dbPerson.setEmail(person.getEmail());
+			if(person.getBirthdate()!=null)
+				dbPerson.setBirthdate(person.getBirthdate());
+
+			Holder<Person> holder = new Holder<>(dbPerson);
+			storage.updatePerson(holder);
+
+			return holder.value;
+		}
+		else 
+			return this.createPerson(person);
+	}
 }
 
 
