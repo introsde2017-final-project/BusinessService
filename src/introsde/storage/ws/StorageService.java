@@ -30,7 +30,7 @@ public class StorageService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://127.0.1.1:6904/storage?wsdl");
+            url = new URL("https://storage--service.herokuapp.com/storage?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

@@ -9,6 +9,7 @@ import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 
+import introsde.localdatabase.soap.Measure;
 import introsde.localdatabase.soap.Person;
 
 
@@ -21,5 +22,9 @@ public interface Business {
 	@WebResult(name="person") 
 	public Person createPerson(@WebParam(name="person") Person person);
 	
+    @WebMethod(operationName="savePersonMeasure")
+    @WebResult(name="measure") 
+    public Measure savePersonMeasure(@WebParam(name="chatId") Long chatId, @WebParam(name="measure") Measure measure);
+ 
     
 }
