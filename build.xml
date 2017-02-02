@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ================================= 
+    Introduction to Service Design and Engineering Laboratory
+    Description: ANT build script for the session on JAXB and Dozer 
+   
+-->
+<project name="Business" default="install" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+
+
+	<!-- General properties definitions -->
+	<property name="build.dir" value="build" />
+	<property name="src.dir" value="src" />
+
+
+	<!-- Compilation and execution targets for this session -->
+	<target name="init" depends="">
+		<echo message="Init has been called" />
+		<mkdir dir="${build.dir}" />
+		<echo message="${build.dir} has been created" />
+	</target>
+
+	<target name="clean">
+		<echo message="Clean has been called" />
+		<delete dir="${build.dir}" />
+	</target>
+
+	<target name="install" depends="clean, init">
+		<echo message="Compile target has been called" />
+		<javac srcdir="${src.dir}" destdir="${build.dir}" includeAntRuntime="false" encoding="UTF8">
+		</javac>
+		<copy todir="${build.dir}" overwrite="true">
+			<fileset dir="${src.dir}">
+				<include name="*.xml" />
+				<include name="**/*.xml" />
+			</fileset>
+		</copy>
+	</target>
+
+    <target name="start" depends="install">
+        <echo message="server start introsde.business.endpoint.BusinessPublisher in ${build.dir}" />
+        <java classname="introsde.business.endpoint.BusinessPublisher" classpath="${build.dir}" fork="true">
+            <arg value="$JAVA_OPTS  -cp" />
+            <classpath>
+                <path location="build" />
+            </classpath>
+        </java>
+    </target>
+</project>
