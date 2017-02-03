@@ -1,6 +1,8 @@
 package introsde.business.ws;
 
 
+import java.util.List;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -28,10 +30,6 @@ public interface Business {
     @WebMethod(operationName="savePersonMeasure")
     @WebResult(name="measure") 
     public Measure savePersonMeasure(@WebParam(name="chatId") Long chatId, @WebParam(name="measure") Measure measure);
- 
-	@WebMethod(operationName="getCalories")
-	@WebResult(name="calories")
-	public double getCalories(@WebParam(name="chatId") Long chatId, @WebParam(name="exercise") Exercise exe);
 	
     @WebMethod(operationName="getProfile")
     @WebResult(name="person") 
@@ -40,5 +38,13 @@ public interface Business {
     @WebMethod(operationName="updatePerson")
     @WebResult(name="person") 
     public Person updatePerson(@WebParam(name="person") Person person);
+    
+	@WebMethod(operationName="getCalories")
+	@WebResult(name="calories")
+	public Exercise getCalories(@WebParam(name="chatId") Long chatId, @WebParam(name="exercise") Exercise exe);
+	
+	@WebMethod(operationName="getExercise")
+	@WebResult(name="exercise")
+	public Exercise getExercise(@WebParam(name="chatId") Long chatId);
     
 }

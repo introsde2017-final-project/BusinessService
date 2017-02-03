@@ -3,6 +3,7 @@ package introsde.business.ws;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class BusinessImpl implements Business{
 	
 	StorageService sService;
 	Storage storage;	
+	int NUM_EXERCISE = 4;
 	
 	public void initialize(){
 		sService = new StorageService();
@@ -95,39 +97,6 @@ public class BusinessImpl implements Business{
     	return holder.value;
 	}
 	
-	public Exercise search(List<Exercise> list, String name){
-		for(Exercise e:list){
-			if (e.getName().equals(name)){
-				return e;
-			}
-				
-		}
-		return null;
-	}
-
-	@Override
-	public double getCalories(Long chatId, Exercise exe) {
-		initialize();
-		
-		Person dbPerson = storage.getPersonByChatId(chatId);
-		Exercise res = search(storage.getExercises(), exe.getName());
-		
-		storage.setInfo(dbPerson, 80, 180, 75);
-
-		
-		// insert the new exercise in the current day
-		storage.editExerciseEntry(dbPerson, res.getId(), exe.getMinutes());
-		
-		res = search(storage.getExerciseEntry(dbPerson, 0),exe.getName());
-		
-		double calories = res.getCalories();
-		
-		storage.commitDay(dbPerson);
-		
-		return calories;
-	}
-
-
 	@Override
 	public Person getProfile(Long chatId) {
 		initialize();
@@ -157,22 +126,82 @@ public class BusinessImpl implements Business{
 		
 		if (dbPerson!=null){
 			//Save new values
-			if(person.getFirstname()!=null)
-				dbPerson.setFirstname(person.getFirstname());
-			if(person.getLastname()!=null)
-				dbPerson.setLastname(person.getLastname());
-			if(person.getEmail()!=null)
-				dbPerson.setEmail(person.getEmail());
-			if(person.getBirthdate()!=null)
-				dbPerson.setBirthdate(person.getBirthdate());
+			person.setIdPerson(dbPerson.getIdPerson());
 
-			Holder<Person> holder = new Holder<>(dbPerson);
+			Holder<Person> holder = new Holder<>(person);
 			storage.updatePerson(holder);
 
 			return holder.value;
 		}
 		else 
 			return this.createPerson(person);
+	}
+	
+	
+	
+	
+	
+	public Exercise search(List<Exercise> list, String name){
+		for(Exercise e:list){
+			if (e.getName().equals(name)){
+				return e;
+			}
+				
+		}
+		return null;
+	}
+
+	@Override
+	public Exercise getCalories(Long chatId, Exercise exe) {
+		initialize();
+		
+		Person dbPerson = storage.getPersonByChatId(chatId);
+		Exercise res = search(storage.getExercises(), exe.getName());
+		
+		storage.setInfo(dbPerson, 80, 180, 75);
+
+		
+		// insert the new exercise in the current day
+		storage.editExerciseEntry(dbPerson, res.getId(), exe.getMinutes());
+		
+		res = search(storage.getExerciseEntry(dbPerson, 0),exe.getName());
+		
+		storage.commitDay(dbPerson);
+		
+		return res;
+	}
+
+
+	@Override
+	public Exercise getExercise(Long chatId) {
+		initialize();
+		
+		Person dbPerson = storage.getPersonByChatId(chatId);
+		
+		if(dbPerson == null)
+			return null;
+		if(dbPerson.getCurrentHealth()==null)
+			return null;
+		
+		List<Measure> currentHealth = dbPerson.getCurrentHealth().getMeasure();
+		boolean height= false;
+		boolean weight=false;
+		for (int i = 0; i<currentHealth.size();i++){
+			if (currentHealth.get(i).getMeasureType().equals("height"))
+				height=true;
+			if (currentHealth.get(i).getMeasureType().equals("weight"))
+				weight=true;
+		}
+		
+		// return if it is not already set weight and height
+		if (!(height && weight))
+			return null;
+		
+		List<Exercise> exercises = storage.getExercises();
+	
+		int exe = (int)(Math.random() * exercises.size());
+		
+		return exercises.get(exe);
 	}
 }
 
