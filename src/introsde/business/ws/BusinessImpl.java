@@ -141,9 +141,21 @@ public class BusinessImpl implements Business{
 	
 	
 	
-	public Exercise search(List<Exercise> list, String name){
+	public Exercise search_by_name(List<Exercise> list, String name){
 		for(Exercise e:list){
+			
 			if (e.getName().equals(name)){
+				return e;
+			}
+				
+		}
+		return null;
+	}
+	
+	public Exercise search_by_id(List<Exercise> list, int id){
+		for(Exercise e:list){
+			
+			if (e.getId()==id){
 				return e;
 			}
 				
@@ -156,15 +168,13 @@ public class BusinessImpl implements Business{
 		initialize();
 		
 		Person dbPerson = storage.getPersonByChatId(chatId);
-		Exercise res = search(storage.getExercises(), exe.getName());
-		
-		storage.setInfo(dbPerson, 80, 180, 75);
+		Exercise res = search_by_name(storage.getExercises(), exe.getName());
 
-		
 		// insert the new exercise in the current day
 		storage.editExerciseEntry(dbPerson, res.getId(), exe.getMinutes());
 		
-		res = search(storage.getExerciseEntry(dbPerson, 0),exe.getName());
+		storage.getExerciseEntry(dbPerson, 0);
+		res = search_by_id(storage.getExerciseEntry(dbPerson, 0), res.getId());
 		
 		storage.commitDay(dbPerson);
 		
