@@ -178,6 +178,12 @@ public class BusinessImpl implements Business{
 		
 		storage.commitDay(dbPerson);
 		
+		//proportion to get calories for correct minutes and not the sum of what done during the day
+		//min_da_telegram : x = min_da_db : calorie_calcolate
+		int newCalories = (int)(exe.getMinutes() * res.getCalories()) / res.getMinutes();
+		res.setCalories(newCalories);
+		res.setMinutes(exe.getMinutes());
+				
 		return res;
 	}
 
