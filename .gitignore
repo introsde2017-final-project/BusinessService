@@ -4,3 +4,4 @@
 .project
 WebContent/WEB-INF/lib/
 *~
+*.class

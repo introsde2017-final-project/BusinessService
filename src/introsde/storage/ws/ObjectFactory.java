@@ -26,11 +26,13 @@ public class ObjectFactory {
 
     private final static QName _GetExerciseEntry_QNAME = new QName("http://ws.storage.introsde/", "getExerciseEntry");
     private final static QName _GetExercises_QNAME = new QName("http://ws.storage.introsde/", "getExercises");
+    private final static QName _GetRecipe_QNAME = new QName("http://ws.storage.introsde/", "getRecipe");
     private final static QName _GetPersonByChatIdResponse_QNAME = new QName("http://ws.storage.introsde/", "getPersonByChatIdResponse");
     private final static QName _SaveTemplateResponse_QNAME = new QName("http://ws.storage.introsde/", "saveTemplateResponse");
     private final static QName _DeletePersonResponse_QNAME = new QName("http://ws.storage.introsde/", "deletePersonResponse");
     private final static QName _UpdatePersonMeasureResponse_QNAME = new QName("http://ws.storage.introsde/", "updatePersonMeasureResponse");
     private final static QName _EditExerciseEntry_QNAME = new QName("http://ws.storage.introsde/", "editExerciseEntry");
+    private final static QName _SearchRecipesResponse_QNAME = new QName("http://ws.storage.introsde/", "searchRecipesResponse");
     private final static QName _SetInfoResponse_QNAME = new QName("http://ws.storage.introsde/", "setInfoResponse");
     private final static QName _CommitDayResponse_QNAME = new QName("http://ws.storage.introsde/", "commitDayResponse");
     private final static QName _SearchFood_QNAME = new QName("http://ws.storage.introsde/", "searchFood");
@@ -60,8 +62,10 @@ public class ObjectFactory {
     private final static QName _UpdatePersonMeasure_QNAME = new QName("http://ws.storage.introsde/", "updatePersonMeasure");
     private final static QName _DeletePerson_QNAME = new QName("http://ws.storage.introsde/", "deletePerson");
     private final static QName _CreatePersonResponse_QNAME = new QName("http://ws.storage.introsde/", "createPersonResponse");
+    private final static QName _SearchRecipes_QNAME = new QName("http://ws.storage.introsde/", "searchRecipes");
     private final static QName _SavePersonMeasure_QNAME = new QName("http://ws.storage.introsde/", "savePersonMeasure");
     private final static QName _SavePersonMeasureResponse_QNAME = new QName("http://ws.storage.introsde/", "savePersonMeasureResponse");
+    private final static QName _GetRecipeResponse_QNAME = new QName("http://ws.storage.introsde/", "getRecipeResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: introsde.storage.ws
@@ -111,6 +115,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link SearchRecipesResponse }
+     * 
+     */
+    public SearchRecipesResponse createSearchRecipesResponse() {
+        return new SearchRecipesResponse();
+    }
+
+    /**
      * Create an instance of {@link DeletePersonResponse }
      * 
      */
@@ -132,6 +144,14 @@ public class ObjectFactory {
      */
     public GetExercises createGetExercises() {
         return new GetExercises();
+    }
+
+    /**
+     * Create an instance of {@link GetRecipe }
+     * 
+     */
+    public GetRecipe createGetRecipe() {
+        return new GetRecipe();
     }
 
     /**
@@ -175,6 +195,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link SearchRecipes }
+     * 
+     */
+    public SearchRecipes createSearchRecipes() {
+        return new SearchRecipes();
+    }
+
+    /**
      * Create an instance of {@link SavePersonMeasure }
      * 
      */
@@ -188,6 +216,14 @@ public class ObjectFactory {
      */
     public SavePersonMeasureResponse createSavePersonMeasureResponse() {
         return new SavePersonMeasureResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetRecipeResponse }
+     * 
+     */
+    public GetRecipeResponse createGetRecipeResponse() {
+        return new GetRecipeResponse();
     }
 
     /**
@@ -393,6 +429,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetRecipe }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.storage.introsde/", name = "getRecipe")
+    public JAXBElement<GetRecipe> createGetRecipe(GetRecipe value) {
+        return new JAXBElement<GetRecipe>(_GetRecipe_QNAME, GetRecipe.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link GetPersonByChatIdResponse }{@code >}}
      * 
      */
@@ -435,6 +480,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.storage.introsde/", name = "editExerciseEntry")
     public JAXBElement<EditExerciseEntry> createEditExerciseEntry(EditExerciseEntry value) {
         return new JAXBElement<EditExerciseEntry>(_EditExerciseEntry_QNAME, EditExerciseEntry.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SearchRecipesResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.storage.introsde/", name = "searchRecipesResponse")
+    public JAXBElement<SearchRecipesResponse> createSearchRecipesResponse(SearchRecipesResponse value) {
+        return new JAXBElement<SearchRecipesResponse>(_SearchRecipesResponse_QNAME, SearchRecipesResponse.class, null, value);
     }
 
     /**
@@ -699,6 +753,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link SearchRecipes }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.storage.introsde/", name = "searchRecipes")
+    public JAXBElement<SearchRecipes> createSearchRecipes(SearchRecipes value) {
+        return new JAXBElement<SearchRecipes>(_SearchRecipes_QNAME, SearchRecipes.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link SavePersonMeasure }{@code >}}
      * 
      */
@@ -714,6 +777,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.storage.introsde/", name = "savePersonMeasureResponse")
     public JAXBElement<SavePersonMeasureResponse> createSavePersonMeasureResponse(SavePersonMeasureResponse value) {
         return new JAXBElement<SavePersonMeasureResponse>(_SavePersonMeasureResponse_QNAME, SavePersonMeasureResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetRecipeResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.storage.introsde/", name = "getRecipeResponse")
+    public JAXBElement<GetRecipeResponse> createGetRecipeResponse(GetRecipeResponse value) {
+        return new JAXBElement<GetRecipeResponse>(_GetRecipeResponse_QNAME, GetRecipeResponse.class, null, value);
     }
 
 }

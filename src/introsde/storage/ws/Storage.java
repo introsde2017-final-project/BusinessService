@@ -13,6 +13,7 @@ import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 import introsde.adapter.ws.Exercise;
 import introsde.adapter.ws.Food;
+import introsde.adapter.ws.Recipe;
 import introsde.localdatabase.soap.Measure;
 import introsde.localdatabase.soap.Person;
 
@@ -331,5 +332,35 @@ public interface Storage {
     public boolean commitDay(
         @WebParam(name = "user", targetNamespace = "")
         Person user);
+
+    /**
+     * 
+     * @param recipeId
+     * @return
+     *     returns introsde.adapter.ws.Recipe
+     */
+    @WebMethod
+    @WebResult(name = "recipe", targetNamespace = "")
+    @RequestWrapper(localName = "getRecipe", targetNamespace = "http://ws.storage.introsde/", className = "introsde.storage.ws.GetRecipe")
+    @ResponseWrapper(localName = "getRecipeResponse", targetNamespace = "http://ws.storage.introsde/", className = "introsde.storage.ws.GetRecipeResponse")
+    @Action(input = "http://ws.storage.introsde/Storage/getRecipeRequest", output = "http://ws.storage.introsde/Storage/getRecipeResponse")
+    public Recipe getRecipe(
+        @WebParam(name = "recipeId", targetNamespace = "")
+        int recipeId);
+
+    /**
+     * 
+     * @param text
+     * @return
+     *     returns java.util.List<introsde.adapter.ws.Recipe>
+     */
+    @WebMethod
+    @WebResult(name = "recipes", targetNamespace = "")
+    @RequestWrapper(localName = "searchRecipes", targetNamespace = "http://ws.storage.introsde/", className = "introsde.storage.ws.SearchRecipes")
+    @ResponseWrapper(localName = "searchRecipesResponse", targetNamespace = "http://ws.storage.introsde/", className = "introsde.storage.ws.SearchRecipesResponse")
+    @Action(input = "http://ws.storage.introsde/Storage/searchRecipesRequest", output = "http://ws.storage.introsde/Storage/searchRecipesResponse")
+    public List<Recipe> searchRecipes(
+        @WebParam(name = "text", targetNamespace = "")
+        String text);
 
 }

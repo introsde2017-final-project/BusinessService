@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="authSecret" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="authToken" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="birthdate" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="caloriesMeal" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/>
  *         &lt;element name="chatId" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/>
  *         &lt;element name="currentHealth" minOccurs="0">
  *           &lt;complexType>
@@ -51,6 +52,7 @@ import javax.xml.bind.annotation.XmlType;
     "authSecret",
     "authToken",
     "birthdate",
+    "caloriesMeal",
     "chatId",
     "currentHealth",
     "email",
@@ -63,6 +65,7 @@ public class Person {
     protected String authSecret;
     protected String authToken;
     protected String birthdate;
+    protected Long caloriesMeal;
     protected Long chatId;
     protected Person.CurrentHealth currentHealth;
     protected String email;
@@ -140,6 +143,30 @@ public class Person {
      */
     public void setBirthdate(String value) {
         this.birthdate = value;
+    }
+
+    /**
+     * Recupera il valore della proprietà caloriesMeal.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Long }
+     *     
+     */
+    public Long getCaloriesMeal() {
+        return caloriesMeal;
+    }
+
+    /**
+     * Imposta il valore della proprietà caloriesMeal.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Long }
+     *     
+     */
+    public void setCaloriesMeal(Long value) {
+        this.caloriesMeal = value;
     }
 
     /**
