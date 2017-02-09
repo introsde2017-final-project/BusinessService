@@ -3,7 +3,6 @@ package introsde.business.ws;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class BusinessImpl implements Business{
 	}
 
 	@Override
-    public Measure savePersonMeasure(Long chatId, Measure measure) {
+    public String savePersonMeasure(Long chatId, Measure measure) {
     	initialize();
 
     	//search person with chatId in db
@@ -94,7 +93,21 @@ public class BusinessImpl implements Business{
 			Double storedHeight = Double.parseDouble(measure.getMeasureValue());
 			storage.setInfo(dbPerson, weight, storedHeight, weight - 5);
 		}
-    	return holder.value;
+		
+		String result = "";
+		//if the measure updates an old value of weight
+		if (measure.getMeasureType().equals("weight") && weight != null) {
+			Double storedWeight = Double.parseDouble(measure.getMeasureValue());
+			Double lostWeight = weight - storedWeight;
+			if (lostWeight > 0) {
+				result = "Congratulations, you lost " + lostWeight + " kg!";
+			} else if (lostWeight < 0){
+				result = "Pay attention! You gained " + Math.abs(lostWeight) + " kg.";
+			}
+			
+		}
+		
+    	return result;
 	}
 	
 	@Override
@@ -218,6 +231,34 @@ public class BusinessImpl implements Business{
 		int exe = (int)(Math.random() * exercises.size());
 		
 		return exercises.get(exe);
+	}
+
+
+	@Override
+	public List<Exercise> getTodayExercises(Long chatId) {
+		initialize();
+		
+		//Get person
+		Person dbPerson = storage.getPersonByChatId(chatId);
+		
+		//if height and set, return null -> not possible to calculate calories
+		List<Measure> currentHealth = dbPerson.getCurrentHealth().getMeasure();
+		boolean height= false;
+		boolean weight=false;
+		for (int i = 0; i<currentHealth.size();i++){
+			if (currentHealth.get(i).getMeasureType().equals("height"))
+				height=true;
+			if (currentHealth.get(i).getMeasureType().equals("weight"))
+				weight=true;
+		}
+		
+		// return if it is not already set weight and height
+		if (!(height && weight))
+			return null;
+		
+		//Get today's exercises
+		List<Exercise> exerciseList = storage.getExerciseEntry(dbPerson, 0);
+		return exerciseList;
 	}
 }
 

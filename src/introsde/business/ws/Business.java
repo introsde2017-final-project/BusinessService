@@ -29,7 +29,7 @@ public interface Business {
 	
     @WebMethod(operationName="savePersonMeasure")
     @WebResult(name="measure") 
-    public Measure savePersonMeasure(@WebParam(name="chatId") Long chatId, @WebParam(name="measure") Measure measure);
+    public String savePersonMeasure(@WebParam(name="chatId") Long chatId, @WebParam(name="measure") Measure measure);
 	
     @WebMethod(operationName="getProfile")
     @WebResult(name="person") 
@@ -46,5 +46,9 @@ public interface Business {
 	@WebMethod(operationName="getExercise")
 	@WebResult(name="exercise")
 	public Exercise getExercise(@WebParam(name="chatId") Long chatId);
+	
+	@WebMethod(operationName="getTodayExercises")
+	@WebResult(name="exercises")
+	public List<Exercise> getTodayExercises(@WebParam(name="chatId") Long chatId);
     
 }
