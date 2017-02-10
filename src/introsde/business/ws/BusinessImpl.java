@@ -218,6 +218,8 @@ public class BusinessImpl implements Business{
 			storage.editExerciseEntry(dbPerson, 1, minutes - res.getMinutes());
 		}
 		
+		storage.saveTemplate(dbPerson, 127);
+		
 	}
 
 
