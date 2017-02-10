@@ -11,6 +11,7 @@ import javax.jws.WebService;
 import javax.xml.ws.Holder;
 
 import introsde.adapter.ws.Exercise;
+import introsde.adapter.ws.Recipe;
 import introsde.localdatabase.soap.Measure;
 import introsde.localdatabase.soap.Person;
 import introsde.localdatabase.soap.Person.CurrentHealth;
@@ -284,6 +285,40 @@ public class BusinessImpl implements Business{
 	}
 	
 	
+	@Override
+	public String getSentenceRecipeCalories(Long chatId, Integer recipeId) {
+		initialize();
+		
+		Person dbPerson = storage.getPersonByChatId(chatId);
+
+		if (dbPerson == null) {		
+			return null;
+		}
+		
+		Long goalCalories = dbPerson.getCaloriesMeal();
+		System.out.println("meal " + goalCalories); 
+		String messageText = null;
+		if (goalCalories == null) { //if calories not set, not possible
+			System.out.println("3 "); 
+			messageText = "<b>Operation not available now</b>\nInsert the maximum amount of calories per meal.";
+		} else {//search recipe
+			System.out.println("4 "); 
+			Recipe recipe = storage.getRecipe(recipeId);
+			
+			Integer percentage = (int)((recipe.getCalories()/(double)goalCalories)*100); //percentage of cal per meal over recipe cal
+				
+			messageText = "<b>" + recipe.getName() + "</b> is equal to the " + percentage + "% of your meal calories goal.\n" + 
+					"It also contains:\n   * carbohydrate: " + recipe.getCarbohydrate() + "\n" + 
+					"   * fat: " + recipe.getFat() + "\n   * protein: " + recipe.getProtein() + "\n\n";
+				
+			if(percentage > 100) {
+				messageText += "Are you <b>really</b> sure to cook it?";
+			} else {
+				messageText += "<b>Perfect!</b>\nReady to cook it?";
+			}
+		}
+		return messageText;
+	}
 }
 
 

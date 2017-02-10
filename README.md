@@ -131,3 +131,19 @@ soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
     </soap:Body>
 </soap:Envelope>
 ```
+
+#### Get a sentence according to the recipe calories and to the maximum amount of calories that the person should eat
+```
+<soap:Envelope
+xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+soap:encodingStyle="http://www.w3.org/2001/12/soap-encoding">
+    <soap:Body xmlns:m="http://ws.business.introsde/">
+        <m:getSentenceRecipeCalories>
+			<chatId>123</chatId>
+			<recipe>
+				<id>77817</id>
+			</recipe>
+        </m:getSentenceRecipeCalories>
+    </soap:Body>
+</soap:Envelope>
+```

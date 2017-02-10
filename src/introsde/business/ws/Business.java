@@ -15,6 +15,7 @@ import javax.jws.soap.SOAPBinding.Use;
 import introsde.localdatabase.soap.Measure;
 
 import introsde.adapter.ws.Exercise;
+import introsde.adapter.ws.Recipe;
 import introsde.localdatabase.soap.Person;
 
 
@@ -54,4 +55,6 @@ public interface Business {
 	@WebResult(name="exercises")
 	public List<Exercise> getTodayExercises(@WebParam(name="chatId") Long chatId);
     
+	@WebMethod(operationName="getSentenceRecipeCalories")
+	public String getSentenceRecipeCalories(@WebParam(name="chatId") Long chatId, @WebParam(name="recipeId") Integer recipeId);
 }
