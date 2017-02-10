@@ -37,6 +37,7 @@ public class ObjectFactory {
     private final static QName _CommitDayResponse_QNAME = new QName("http://ws.storage.introsde/", "commitDayResponse");
     private final static QName _SearchFood_QNAME = new QName("http://ws.storage.introsde/", "searchFood");
     private final static QName _ReadMeasureTypesResponse_QNAME = new QName("http://ws.storage.introsde/", "readMeasureTypesResponse");
+    private final static QName _RemoveSleepTime_QNAME = new QName("http://ws.storage.introsde/", "removeSleepTime");
     private final static QName _CommitDay_QNAME = new QName("http://ws.storage.introsde/", "commitDay");
     private final static QName _ReadPersonMeasure_QNAME = new QName("http://ws.storage.introsde/", "readPersonMeasure");
     private final static QName _SetInfo_QNAME = new QName("http://ws.storage.introsde/", "setInfo");
@@ -54,6 +55,7 @@ public class ObjectFactory {
     private final static QName _ReadPerson_QNAME = new QName("http://ws.storage.introsde/", "readPerson");
     private final static QName _GetPeopleListResponse_QNAME = new QName("http://ws.storage.introsde/", "getPeopleListResponse");
     private final static QName _EditExerciseEntryResponse_QNAME = new QName("http://ws.storage.introsde/", "editExerciseEntryResponse");
+    private final static QName _RemoveSleepTimeResponse_QNAME = new QName("http://ws.storage.introsde/", "removeSleepTimeResponse");
     private final static QName _GetFood_QNAME = new QName("http://ws.storage.introsde/", "getFood");
     private final static QName _ReadMeasureTypes_QNAME = new QName("http://ws.storage.introsde/", "readMeasureTypes");
     private final static QName _CreatePerson_QNAME = new QName("http://ws.storage.introsde/", "createPerson");
@@ -243,6 +245,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link RemoveSleepTimeResponse }
+     * 
+     */
+    public RemoveSleepTimeResponse createRemoveSleepTimeResponse() {
+        return new RemoveSleepTimeResponse();
+    }
+
+    /**
      * Create an instance of {@link GetFood }
      * 
      */
@@ -344,6 +354,14 @@ public class ObjectFactory {
      */
     public ReadPerson createReadPerson() {
         return new ReadPerson();
+    }
+
+    /**
+     * Create an instance of {@link RemoveSleepTime }
+     * 
+     */
+    public RemoveSleepTime createRemoveSleepTime() {
+        return new RemoveSleepTime();
     }
 
     /**
@@ -528,6 +546,15 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RemoveSleepTime }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.storage.introsde/", name = "removeSleepTime")
+    public JAXBElement<RemoveSleepTime> createRemoveSleepTime(RemoveSleepTime value) {
+        return new JAXBElement<RemoveSleepTime>(_RemoveSleepTime_QNAME, RemoveSleepTime.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link CommitDay }{@code >}}
      * 
      */
@@ -678,6 +705,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://ws.storage.introsde/", name = "editExerciseEntryResponse")
     public JAXBElement<EditExerciseEntryResponse> createEditExerciseEntryResponse(EditExerciseEntryResponse value) {
         return new JAXBElement<EditExerciseEntryResponse>(_EditExerciseEntryResponse_QNAME, EditExerciseEntryResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link RemoveSleepTimeResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://ws.storage.introsde/", name = "removeSleepTimeResponse")
+    public JAXBElement<RemoveSleepTimeResponse> createRemoveSleepTimeResponse(RemoveSleepTimeResponse value) {
+        return new JAXBElement<RemoveSleepTimeResponse>(_RemoveSleepTimeResponse_QNAME, RemoveSleepTimeResponse.class, null, value);
     }
 
     /**

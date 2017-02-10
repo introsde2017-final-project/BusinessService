@@ -43,6 +43,9 @@ public interface Business {
 	@WebResult(name="calories")
 	public Exercise getCalories(@WebParam(name="chatId") Long chatId, @WebParam(name="exercise") Exercise exe);
 	
+	@WebMethod(operationName="setSleepTime")
+	public void setSleepTime(@WebParam(name="chatId") Long chatId, @WebParam(name="hours") double hours);
+	
 	@WebMethod(operationName="getExercise")
 	@WebResult(name="exercise")
 	public Exercise getExercise(@WebParam(name="chatId") Long chatId);

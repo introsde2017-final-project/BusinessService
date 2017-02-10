@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.xml.ws.Holder;
 
@@ -167,7 +168,6 @@ public class BusinessImpl implements Business{
 	
 	public Exercise search_by_id(List<Exercise> list, int id){
 		for(Exercise e:list){
-			
 			if (e.getId()==id){
 				return e;
 			}
@@ -186,7 +186,6 @@ public class BusinessImpl implements Business{
 		// insert the new exercise in the current day
 		storage.editExerciseEntry(dbPerson, res.getId(), exe.getMinutes());
 		
-		storage.getExerciseEntry(dbPerson, 0);
 		res = search_by_id(storage.getExerciseEntry(dbPerson, 0), res.getId());
 		
 		storage.commitDay(dbPerson);
@@ -198,6 +197,27 @@ public class BusinessImpl implements Business{
 		res.setMinutes(exe.getMinutes());
 				
 		return res;
+	}
+	
+	@Override
+	public void setSleepTime(@WebParam(name="chatId") Long chatId, @WebParam(name="hours") double hours){
+		initialize();
+		
+		Person dbPerson = storage.getPersonByChatId(chatId);
+		System.out.println(hours);
+		int h = (int) hours;
+		int m =(int) ((hours - h) * 100);
+		int minutes=h*60+m;
+		// return the current sleeping(id=1) exercise
+		Exercise res = search_by_id(storage.getExerciseEntry(dbPerson, 0), 1);
+		
+		if (res.getMinutes() > minutes){
+			storage.removeSleepTime(dbPerson, res.getMinutes() - minutes);
+			
+		}else if(res.getMinutes() < minutes){
+			storage.editExerciseEntry(dbPerson, 1, minutes - res.getMinutes());
+		}
+		
 	}
 
 
@@ -260,6 +280,8 @@ public class BusinessImpl implements Business{
 		List<Exercise> exerciseList = storage.getExerciseEntry(dbPerson, 0);
 		return exerciseList;
 	}
+	
+	
 }
 
 

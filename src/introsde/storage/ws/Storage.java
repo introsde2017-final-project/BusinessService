@@ -302,6 +302,24 @@ public interface Storage {
 
     /**
      * 
+     * @param minutes
+     * @param user
+     * @return
+     *     returns boolean
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "removeSleepTime", targetNamespace = "http://ws.storage.introsde/", className = "introsde.storage.ws.RemoveSleepTime")
+    @ResponseWrapper(localName = "removeSleepTimeResponse", targetNamespace = "http://ws.storage.introsde/", className = "introsde.storage.ws.RemoveSleepTimeResponse")
+    @Action(input = "http://ws.storage.introsde/Storage/removeSleepTimeRequest", output = "http://ws.storage.introsde/Storage/removeSleepTimeResponse")
+    public boolean removeSleepTime(
+        @WebParam(name = "user", targetNamespace = "")
+        Person user,
+        @WebParam(name = "minutes", targetNamespace = "")
+        int minutes);
+
+    /**
+     * 
      * @param days
      * @param user
      * @return
